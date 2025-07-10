@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-poppins: 'Poppins', sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-cinzel: 'Cinzel', serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+  
+  body {
+    @apply bg-neutral-50 text-text-primary dark:bg-neutral-900 dark:text-text-light;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-100 dark:bg-neutral-800;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-400 dark:bg-primary-600 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-gold dark:bg-primary-500 rounded-full;
+  }
+}
+
+@layer components {
+  /* Stili pulsanti oro e marrone raffinati */
+  .btn-gold {
+    @apply px-6 py-3 rounded-3xl font-medium transition-all duration-300 ease-in-out;
+    @apply bg-primary-500 text-text-primary shadow-gold;
+    @apply hover:shadow-gold-glow hover:bg-primary-400 hover:-translate-y-0.5;
+    @apply active:translate-y-0 active:shadow-gold-sm;
+  }
+  
+  .btn-gold-outline {
+    @apply px-6 py-3 rounded-3xl font-medium transition-all duration-300 ease-in-out;
+    @apply bg-transparent border-2 border-primary-500 text-primary-600;
+    @apply hover:bg-primary-50 hover:shadow-gold hover:-translate-y-0.5;
+    @apply dark:text-text-gold dark:border-text-gold dark:hover:bg-neutral-800;
+  }
+  
+  /* Stili card oro e marrone */
+  .card-warm {
+    @apply rounded-3xl p-6 transition-all duration-300 ease-in-out;
+    @apply bg-neutral-50 dark:bg-neutral-800 border border-primary-200/30;
+    @apply shadow-gold dark:shadow-brown-soft;
+    @apply hover:shadow-gold-lg hover:-translate-y-1 dark:hover:shadow-brown-dark;
+  }
+  
+  /* Glass morphism styles */
+  .glass {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/10;
+    @apply border border-white/20 dark:border-white/10;
+  }
+  
+  /* Parallax container */
+  .parallax-container {
+    @apply relative overflow-hidden;
+  }
+  
+  .parallax-element {
+    @apply absolute inset-0 will-change-transform;
+  }
+  
+  /* Smooth animations */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .animate-on-scroll.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  /* Typography */
+  .heading-primary {
+    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-bold;
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
+  }
+  
+  .heading-secondary {
+    @apply font-serif text-2xl md:text-3xl lg:text-4xl font-semibold;
+    @apply text-neutral-800 dark:text-neutral-200;
+  }
+  
+  .heading-tertiary {
+    @apply font-serif text-xl md:text-2xl font-medium;
+    @apply text-neutral-700 dark:text-neutral-300;
+  }
+  
+  .body-text {
+    @apply font-sans text-base md:text-lg leading-relaxed;
+    @apply text-neutral-600 dark:text-neutral-400;
+  }
+  
+  /* Focus styles for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply dark:focus:ring-offset-neutral-800;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  
+  /* Animation delays for staggered effects */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+}
+
+/* Dark mode color scheme */
+.dark {
+  color-scheme: dark;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Classi utility per i nuovi font */
+.font-display {
+  font-family: var(--font-cinzel), serif;
+}
+
+.font-elegant {
+  font-family: var(--font-cormorant), serif;
+}
+
+.font-modern {
+  font-family: var(--font-poppins), sans-serif;
+}
