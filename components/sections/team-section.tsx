@@ -352,7 +352,7 @@ export function TeamSection() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="text-center mt-16"
         >
-          <div className="card-warm inline-block p-8">
+          <div className="inline-block p-8">
             <h3 className="heading-tertiary mb-4">
               Scegli il Tuo Specialista
             </h3>

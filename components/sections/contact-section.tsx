@@ -192,7 +192,7 @@ export function ContactSection() {
             </div>
 
             {/* Contact Details */}
-            <div className="card-warm p-6 space-y-6">
+            <div className="p-6 space-y-6">
               <h3 className="heading-tertiary mb-6">Informazioni di Contatto</h3>
               
               {/* Address */}
@@ -289,7 +289,7 @@ export function ContactSection() {
             </div>
 
             {/* Opening Hours */}
-            <div className="card-warm p-6">
+            <div className="p-6">
               <h3 className="heading-tertiary mb-6 flex items-center">
                 <ClockIcon className="h-6 w-6 mr-2 text-primary-500" />
                 Orari di Apertura
@@ -375,7 +375,7 @@ export function ContactSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:sticky lg:top-8"
           >
-            <div className="card-warm p-8">
+            <div className="p-8">
               <h3 className="heading-tertiary mb-6">
                 Inviaci un Messaggio
               </h3>

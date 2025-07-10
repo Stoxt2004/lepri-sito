@@ -217,7 +217,7 @@ export function ServicesSection() {
           transition={{ duration: 0.8, delay: 1.2 }}
           className="mt-16"
         >
-          <div className="card-warm p-8">
+          <div className="p-8">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex-1">
                 <h3 className="heading-tertiary mb-4">
