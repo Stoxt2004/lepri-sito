@@ -181,7 +181,7 @@ export function Header() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="justify-center btn-neu"
+                    className="justify-center"
                     onClick={() => {
                       window.open('tel:+390212345678', '_self')
                       setMobileMenuOpen(false)
@@ -191,7 +191,8 @@ export function Header() {
                     Chiama Ora
                   </Button>
                   <Button
-                    className="justify-center btn-neu-primary"
+                    variant="gold"
+                    className="justify-center"
                     onClick={() => {
                       scrollToSection('#prenota')
                       setMobileMenuOpen(false)

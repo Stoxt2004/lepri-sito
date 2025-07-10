@@ -196,7 +196,7 @@ export function PromotionsSection() {
                 transition={{ duration: 0.6, delay: 0.8 + (index * 0.1) }}
                 onClick={() => setSelectedPromo(promo)}
                 className={cn(
-                  'card-neu p-6 cursor-pointer transition-all duration-300 hover:shadow-xl',
+                  'card-warm p-6 cursor-pointer transition-all duration-300 hover:shadow-xl',
                   selectedPromo.id === promo.id
                     ? 'ring-2 ring-primary-500 shadow-lg rounded-2xl'
                     : 'hover:shadow-lg rounded-lg'
@@ -258,7 +258,7 @@ export function PromotionsSection() {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="lg:sticky lg:top-8"
           >
-            <div className="card-neu p-8 overflow-hidden relative">
+            <div className="card-warm p-8 overflow-hidden relative">
               {/* Background Pattern */}
               <div className="absolute top-0 right-0 w-32 h-32 opacity-5">
                 <SparklesIcon className="w-full h-full" />

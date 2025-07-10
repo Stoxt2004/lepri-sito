@@ -344,7 +344,7 @@ export function TestimonialsSection() {
               </div>
               
               <Button
-                variant="neu-primary"
+                variant="gold"
                 className="w-full mt-4"
                 onClick={() => window.open('https://instagram.com/leprihairspa', '_blank')}
               >

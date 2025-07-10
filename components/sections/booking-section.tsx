@@ -178,7 +178,7 @@ export function BookingSection() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="card-neu p-8 lg:p-12"
+          className="card-warm p-8 lg:p-12"
         >
           {/* Progress Bar */}
           <div className="mb-8">
@@ -431,7 +431,7 @@ export function BookingSection() {
                 </div>
 
                 {/* Summary */}
-                <div className="card-neu p-6 mt-8">
+                <div className="card-warm p-6 mt-8">
                   <h4 className="font-semibold text-neutral-800 dark:text-neutral-200 mb-4">
                     Riepilogo Appuntamento
                   </h4>
@@ -483,7 +483,7 @@ export function BookingSection() {
                   Grazie {formData.name}! La tua richiesta di prenotazione è stata inviata con successo. 
                   Ti contatteremo entro 2 ore per confermare l'appuntamento.
                 </p>
-                <div className="card-neu p-6 mb-6 text-left max-w-md mx-auto">
+                <div className="card-warm p-6 mb-6 text-left max-w-md mx-auto">
                   <h4 className="font-semibold mb-4">Dettagli Prenotazione:</h4>
                   <div className="space-y-2 text-sm">
                     <div>📅 {selectedDate?.label} alle {formData.time}</div>
@@ -495,7 +495,7 @@ export function BookingSection() {
                 </div>
                 <Button
                   onClick={resetForm}
-                  variant="neu-primary"
+                  variant="gold"
                   size="lg"
                 >
                   Prenota un Altro Appuntamento
@@ -519,7 +519,7 @@ export function BookingSection() {
               {currentStep < 3 ? (
                 <Button
                   onClick={nextStep}
-                  variant="neu-primary"
+                  variant="gold"
                   className="min-w-[120px]"
                 >
                   Avanti
@@ -527,7 +527,7 @@ export function BookingSection() {
               ) : (
                 <Button
                   onClick={handleSubmit}
-                  variant="neu-primary"
+                  variant="gold"
                   disabled={isSubmitting}
                   className="min-w-[120px]"
                 >

@@ -104,7 +104,7 @@ function useLazyLoading() {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
               const id = parseInt(entry.target.getAttribute('data-image-id') || '0')
-              setLoadedImages(prev => new Set([...prev, id]))
+              setLoadedImages(prev => new Set([...Array.from(prev), id]))
               observerRef.current?.unobserve(entry.target)
             }
           })
