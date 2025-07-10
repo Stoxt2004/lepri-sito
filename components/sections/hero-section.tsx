@@ -86,7 +86,7 @@ export function HeroSection() {
 
       {/* Content - Mobile: centered, Desktop: positioned on the left side */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="w-full md:w-1/2 h-full flex items-center justify-center px-6 md:px-8 lg:px-16">
+        <div className="w-full md:w-1/2 h-full flex items-center justify-center px-6 md:px-8 lg:px-16 pt-20 md:pt-0">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
