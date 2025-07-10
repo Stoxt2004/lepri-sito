@@ -58,9 +58,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        'serif': ['Cormorant Garamond', 'serif'], // Font elegante per titoli
-        'sans': ['Poppins', 'sans-serif'], // Font moderno per il corpo del testo
-        'display': ['Cinzel', 'serif'], // Font decorativo per elementi speciali
+        'serif': ['Inter', 'serif'], // Font Inter per titoli
+        'sans': ['Inter', 'sans-serif'], // Font Inter per il corpo del testo
+        'display': ['Inter', 'serif'], // Font Inter per elementi speciali
       },
       boxShadow: {
         // Ombre oro e marrone per estetica raffinata

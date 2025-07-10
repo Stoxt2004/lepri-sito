@@ -138,23 +138,55 @@ interface LightboxProps {
 
 function Lightbox({ isOpen, currentIndex, images, onClose, onNext, onPrev }: LightboxProps) {
   const currentImage = images[currentIndex]
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null)
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+    
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe && images.length > 1) {
+      onNext()
+    }
+    if (isRightSwipe && images.length > 1) {
+      onPrev()
+    }
+  }
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowLeft') onPrev()
-      if (e.key === 'ArrowRight') onNext()
+      if (!isOpen) return
+      
+      switch (e.key) {
+        case 'Escape':
+          onClose()
+          break
+        case 'ArrowLeft':
+          onPrev()
+          break
+        case 'ArrowRight':
+          onNext()
+          break
+      }
     }
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = 'hidden'
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.body.style.overflow = 'unset'
-    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
   }, [isOpen, onClose, onNext, onPrev])
 
   if (!isOpen || !currentImage) return null
@@ -165,75 +197,85 @@ function Lightbox({ isOpen, currentIndex, images, onClose, onNext, onPrev }: Lig
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 bg-neutral-900/95 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4"
         onClick={onClose}
       >
         {/* Close button */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute top-4 right-4 text-white hover:bg-white/10 z-10"
+        <button
           onClick={onClose}
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-3 sm:p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors touch-manipulation"
         >
-          <XMarkIcon className="h-6 w-6" />
-        </Button>
+          <XMarkIcon className="h-6 w-6 sm:h-6 sm:w-6 text-white" />
+        </button>
 
         {/* Navigation buttons */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 z-10"
-          onClick={(e) => {
-            e.stopPropagation()
-            onPrev()
-          }}
-        >
-          <ChevronLeftIcon className="h-6 w-6" />
-        </Button>
-
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/10 z-10"
-          onClick={(e) => {
-            e.stopPropagation()
-            onNext()
-          }}
-        >
-          <ChevronRightIcon className="h-6 w-6" />
-        </Button>
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onPrev()
+              }}
+              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 p-4 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors touch-manipulation"
+            >
+              <ChevronLeftIcon className="h-6 w-6 text-white" />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onNext()
+              }}
+              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 p-4 sm:p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors touch-manipulation"
+            >
+              <ChevronRightIcon className="h-6 w-6 text-white" />
+            </button>
+          </>
+        )}
 
         {/* Image container */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="relative max-w-4xl max-h-[80vh] mx-auto"
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+          className="relative max-w-4xl max-h-[85vh] sm:max-h-[80vh] w-full h-full flex flex-col"
           onClick={(e) => e.stopPropagation()}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
         >
-          <div className="relative rounded-2xl overflow-hidden border-2 border-primary-400/50 shadow-2xl">
+          {/* Image */}
+          <div className="relative flex-1 rounded-lg overflow-hidden">
             <Image
               src={currentImage.image}
               alt={currentImage.title}
-              width={800}
-              height={600}
-              className="w-full h-auto object-contain"
+              fill
+              className="object-contain"
+              sizes="(max-width: 768px) 100vw, 80vw"
               priority
             />
           </div>
-          
+
           {/* Image info */}
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-center text-white"
-          >
-            <h3 className="text-2xl font-bold mb-2">{currentImage.title}</h3>
-            <p className="text-lg text-white/80 mb-1">{currentImage.description}</p>
-            <p className="text-sm text-primary-300">Cliente: {currentImage.client}</p>
-          </motion.div>
+          <div className="mt-4 sm:mt-6 text-center text-white px-2">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2">{currentImage.title}</h3>
+            <p className="text-sm sm:text-lg text-white/80 mb-1">{currentImage.description}</p>
+            <p className="text-xs sm:text-sm text-white/60">Cliente: {currentImage.client}</p>
+            
+            {/* Image counter and swipe indicator */}
+            <div className="mt-3 sm:mt-4 flex flex-col items-center gap-2">
+              <div className="text-xs sm:text-sm text-white/60">
+                {currentIndex + 1} di {images.length}
+              </div>
+              {images.length > 1 && (
+                <div className="sm:hidden text-xs text-white/40 flex items-center gap-1">
+                  <span>←</span>
+                  <span>Scorri per navigare</span>
+                  <span>→</span>
+                </div>
+              )}
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
@@ -273,10 +315,10 @@ function GalleryItem({ item, index, isLoaded, onImageLoad, onClick }: GalleryIte
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className={`group cursor-pointer ${getAspectRatioClass()}`}
+      className={`group cursor-pointer ${getAspectRatioClass()} mb-4 sm:mb-6 break-inside-avoid`}
       onClick={onClick}
     >
-      <div className="relative h-full rounded-2xl overflow-hidden border-2 border-primary-300/30 hover:border-primary-400 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/20">
+      <div className="relative h-full rounded-xl sm:rounded-2xl overflow-hidden border-2 border-primary-300/30 hover:border-primary-400 transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/20 active:scale-95 touch-manipulation">
         {isLoaded ? (
           <>
             <Image
@@ -299,9 +341,9 @@ function GalleryItem({ item, index, isLoaded, onImageLoad, onClick }: GalleryIte
             </div>
 
             {/* Image info overlay */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-              <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-              <p className="text-sm text-white/80">{item.client}</p>
+            <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/80 to-transparent text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+              <h3 className="font-bold text-base sm:text-lg mb-1">{item.title}</h3>
+              <p className="text-xs sm:text-sm text-white/80">{item.client}</p>
             </div>
           </>
         ) : (
@@ -370,21 +412,22 @@ export function GallerySection() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
+          className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12 px-2"
         >
           {categories.map((category) => (
             <Button
               key={category.id}
               variant={activeCategory === category.id ? 'gold' : 'outline'}
-              className={`transition-all duration-300 ${
+              size="sm"
+              className={`transition-all duration-300 text-xs sm:text-sm touch-manipulation ${
                 activeCategory === category.id 
                   ? 'shadow-lg shadow-primary-500/25' 
                   : 'hover:border-primary-400 hover:text-primary-600'
               }`}
               onClick={() => setActiveCategory(category.id)}
             >
-              {category.label}
-              <span className="ml-2 px-2 py-1 text-xs rounded-full bg-current/20">
+              <span className="truncate">{category.label}</span>
+              <span className="ml-1 sm:ml-2 px-1.5 sm:px-2 py-0.5 sm:py-1 text-xs rounded-full bg-current/20 flex-shrink-0">
                 {category.count}
               </span>
             </Button>
@@ -394,7 +437,7 @@ export function GallerySection() {
         {/* Masonry Gallery Grid */}
         <motion.div
           ref={ref}
-          className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6"
+          className="columns-1 sm:columns-2 md:columns-2 lg:columns-3 xl:columns-4 gap-4 sm:gap-6 space-y-4 sm:space-y-6"
         >
           <AnimatePresence mode="wait">
             {filteredItems.map((item, index) => (

@@ -2,12 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&family=Cinzel:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 :root {
-  --font-poppins: 'Poppins', sans-serif;
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-cinzel: 'Cinzel', serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
 @layer base {
@@ -20,6 +18,11 @@
     @apply bg-neutral-50 text-text-primary dark:bg-neutral-900 dark:text-text-light;
     font-feature-settings: "rlig" 1, "calt" 1;
     overflow-x: hidden;
+  }
+  
+  /* Ensure all headings use Inter font */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-inter), sans-serif;
   }
   
   /* Custom scrollbar */
@@ -90,17 +93,17 @@
   
   /* Typography */
   .heading-primary {
-    @apply font-serif text-4xl md:text-5xl lg:text-6xl font-bold;
+    @apply font-sans text-4xl md:text-5xl lg:text-6xl font-bold;
     @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
   }
   
   .heading-secondary {
-    @apply font-serif text-2xl md:text-3xl lg:text-4xl font-semibold;
+    @apply font-sans text-2xl md:text-3xl lg:text-4xl font-semibold;
     @apply text-neutral-800 dark:text-neutral-200;
   }
   
   .heading-tertiary {
-    @apply font-serif text-xl md:text-2xl font-medium;
+    @apply font-sans text-xl md:text-2xl font-medium;
     @apply text-neutral-700 dark:text-neutral-300;
   }
   
@@ -150,15 +153,15 @@
   }
 }
 
-/* Classi utility per i nuovi font */
+/* Classi utility per Inter font */
 .font-display {
-  font-family: var(--font-cinzel), serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .font-elegant {
-  font-family: var(--font-cormorant), serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 .font-modern {
-  font-family: var(--font-poppins), sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }

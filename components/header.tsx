@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useTheme } from 'next-themes'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon, PhoneIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import { Button } from '@/components/ui/button'
 
 const navigation = [
@@ -18,7 +17,6 @@ export function Header() {
   const [mounted, setMounted] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { theme, setTheme } = useTheme()
 
   useEffect(() => {
     setMounted(true)
@@ -49,8 +47,8 @@ export function Header() {
     >
       <nav className={`mx-auto max-w-6xl transition-all duration-300 rounded-2xl ${
         scrolled
-          ? 'bg-white/90 dark:bg-neutral-900/90 backdrop-blur-lg shadow-2xl border border-white/20 dark:border-neutral-700/50'
-          : 'bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md shadow-lg border border-white/30 dark:border-neutral-700/30'
+          ? 'bg-white/90 backdrop-blur-lg shadow-2xl border border-white/20'
+          : 'bg-white/70 backdrop-blur-md shadow-lg border border-white/30'
       }`}>
         <div className="flex h-16 items-center justify-between px-6">
           {/* Logo */}
@@ -69,7 +67,7 @@ export function Header() {
               <div className="h-8 w-8 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center">
                 <span className="text-white font-bold text-sm">L</span>
               </div>
-              <span className="font-display text-xl font-bold text-neutral-800 dark:text-neutral-200">
+              <span className="font-display text-xl font-bold text-neutral-800">
                 Lepri Hair Spa
               </span>
             </a>
@@ -88,7 +86,7 @@ export function Header() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors focus-ring"
+                  className="px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 hover:text-primary-600 transition-colors focus-ring"
                 >
                   {item.name}
                 </motion.a>
@@ -98,21 +96,6 @@ export function Header() {
 
           {/* Right side buttons */}
           <div className="flex items-center space-x-4">
-            {/* Theme toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="focus-ring"
-              aria-label="Cambia tema"
-            >
-              {theme === 'dark' ? (
-                <SunIcon className="h-5 w-5" />
-              ) : (
-                <MoonIcon className="h-5 w-5" />
-              )}
-            </Button>
-
             {/* Call button */}
             <Button
               variant="gold-outline"
@@ -159,7 +142,7 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg rounded-b-2xl border-t border-white/20 dark:border-neutral-700/50 shadow-lg mx-4"
+            className="md:hidden bg-white/95 backdrop-blur-lg rounded-b-2xl border-t border-white/20 shadow-lg mx-4"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navigation.map((item) => (
@@ -171,12 +154,12 @@ export function Header() {
                     scrollToSection(item.href)
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors focus-ring"
+                  className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:text-primary-600 hover:bg-neutral-100 transition-colors focus-ring"
                 >
                   {item.name}
                 </motion.a>
               ))}
-              <div className="pt-4 pb-2 border-t border-neutral-200 dark:border-neutral-700">
+              <div className="pt-4 pb-2 border-t border-neutral-200">
                 <div className="flex flex-col space-y-2 px-3">
                   <Button
                     variant="outline"

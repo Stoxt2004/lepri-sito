@@ -118,7 +118,7 @@ export function PromotionsSection() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative overflow-hidden rounded-3xl mb-16"
+          className="relative overflow-hidden rounded-2xl sm:rounded-3xl mb-12 sm:mb-16"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50" />
           <Image
@@ -126,32 +126,33 @@ export function PromotionsSection() {
             alt={seasonalOffer.title}
             width={1200}
             height={400}
-            className="w-full h-80 lg:h-96 object-cover"
+            className="w-full h-64 sm:h-80 lg:h-96 object-cover"
           />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-white px-6">
+          <div className="absolute inset-0 flex items-center justify-center p-4">
+            <div className="text-center text-white w-full max-w-4xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
+                className="space-y-3 sm:space-y-4"
               >
-                <div className="inline-flex items-center bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                  <SparklesIcon className="h-4 w-4 mr-2" />
+                <div className="inline-flex items-center bg-red-600 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold">
+                  <SparklesIcon className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
                   {seasonalOffer.subtitle}
                 </div>
-                <h3 className="text-3xl lg:text-5xl font-bold mb-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-5xl font-bold leading-tight">
                   {seasonalOffer.title}
                 </h3>
-                <p className="text-lg lg:text-xl mb-6 max-w-2xl mx-auto">
+                <p className="text-sm sm:text-lg lg:text-xl max-w-2xl mx-auto px-2">
                   {seasonalOffer.description}
                 </p>
                 
                 {/* Countdown Timer */}
-                <div className="flex items-center justify-center space-x-4 mb-6">
+                <div className="flex items-center justify-center gap-2 sm:gap-4">
                   {Object.entries(timeLeft).map(([unit, value]) => (
                     <div key={unit} className="text-center">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 min-w-[60px]">
-                        <div className="text-2xl font-bold">{value.toString().padStart(2, '0')}</div>
+                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-2 sm:p-3 min-w-[50px] sm:min-w-[60px]">
+                        <div className="text-lg sm:text-2xl font-bold">{value.toString().padStart(2, '0')}</div>
                         <div className="text-xs uppercase tracking-wide">
                           {unit === 'days' ? 'Giorni' : 
                            unit === 'hours' ? 'Ore' :
@@ -164,14 +165,15 @@ export function PromotionsSection() {
                 
                 <Button
                   size="lg"
-                  className="bg-red-600 hover:bg-red-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  className="bg-red-600 hover:bg-red-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base px-4 sm:px-6 touch-manipulation"
                   onClick={() => {
                     const element = document.querySelector('#prenota')
                     if (element) element.scrollIntoView({ behavior: 'smooth' })
                   }}
                 >
-                  <GiftIcon className="h-5 w-5 mr-2" />
-                  Approfitta Subito - {seasonalOffer.discount} OFF
+                  <GiftIcon className="h-4 w-4 sm:h-5 sm:w-5 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Approfitta Subito - {seasonalOffer.discount} OFF</span>
+                  <span className="sm:hidden">Approfitta - {seasonalOffer.discount} OFF</span>
                 </Button>
               </motion.div>
             </div>
@@ -389,11 +391,11 @@ export function PromotionsSection() {
                 Iscriviti alla nostra newsletter per ricevere in anteprima tutte le promozioni 
                 e gli sconti esclusivi riservati alle nostre clienti più affezionate.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-4">
+              <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto mb-4">
                 <input
                   type="email"
                   placeholder="La tua email"
-                  className="flex-1 h-12 px-6 rounded-lg bg-white/10 border border-white/20 text-white placeholder-neutral-400 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20 transition-all"
+                  className="w-full sm:flex-1 h-12 px-6 rounded-lg bg-white/10 border border-white/20 text-white placeholder-neutral-400 focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20 transition-all"
                 />
                 <Button
                   className="h-12 bg-gradient-to-r from-primary-500 to-secondary-500 hover:from-primary-600 hover:to-secondary-600 text-white px-8 rounded-lg font-semibold whitespace-nowrap shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"

@@ -91,14 +91,14 @@ export function HeroSection() {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="space-y-6 text-center md:text-left max-w-lg w-full"
+            className="space-y-6 text-left max-w-lg w-full"
           >
             {/* Main heading */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
+              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-tight"
             >
               <span className="block bg-gradient-to-r from-white to-primary-300 bg-clip-text text-transparent">
                 Benvenuta nel
