@@ -31,8 +31,22 @@ export function HeroSection() {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Split background - Left: solid color, Right: image */}
-      <div className="absolute inset-0">
+      {/* Mobile: Full image background with dark overlay */}
+      <div className="absolute inset-0 md:hidden">
+        <Image
+          src={heroImages[0].src}
+          alt={heroImages[0].alt}
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Dark overlay for mobile */}
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
+
+      {/* Desktop: Split background - Left: solid color, Right: image */}
+      <div className="absolute inset-0 hidden md:block">
         {/* Left half - Darker solid color background */}
         <div className="absolute left-0 top-0 w-1/2 h-full bg-gradient-to-br from-neutral-900 via-secondary-800 to-primary-800" />
         
@@ -70,21 +84,21 @@ export function HeroSection() {
         <HeartIcon className="h-6 w-6" />
       </motion.div>
 
-      {/* Content - Positioned on the left side */}
+      {/* Content - Mobile: centered, Desktop: positioned on the left side */}
       <div className="absolute inset-0 z-20 flex items-center">
-        <div className="w-1/2 h-full flex items-center justify-center px-8 lg:px-16">
+        <div className="w-full md:w-1/2 h-full flex items-center justify-center px-6 md:px-8 lg:px-16">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1 }}
-            className="space-y-6 text-left max-w-lg"
+            className="space-y-6 text-center md:text-left max-w-lg w-full"
           >
             {/* Main heading */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
             >
               <span className="block bg-gradient-to-r from-white to-primary-300 bg-clip-text text-transparent">
                 Benvenuta nel
@@ -126,12 +140,12 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 1.4 }}
-              className="flex flex-col gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-4 pt-4 w-full"
             >
               <Button
                 variant="gold"
                 size="lg"
-                className="text-white shadow-2xl hover:shadow-3xl transform hover:scale-105"
+                className="text-white shadow-2xl hover:shadow-3xl transform hover:scale-105 w-full sm:w-auto"
                 onClick={() => {
                   const element = document.querySelector('#prenota')
                   if (element) element.scrollIntoView({ behavior: 'smooth' })
@@ -144,7 +158,7 @@ export function HeroSection() {
               <Button
                 variant="outline"
                 size="lg"
-                className="glass text-white hover:bg-white/20"
+                className="glass text-white hover:bg-white/20 w-full sm:w-auto"
                 onClick={scrollToServices}
               >
                 Scopri i Servizi
